@@ -3,6 +3,7 @@ import os
 import random
 
 from sqlalchemy import null
+from torch import FloatTensor
 
 pygame.init()
 
@@ -129,7 +130,7 @@ class Cloud:
         self.image = CLOUD
         self.width = self.image.get_width()
 
-    def update(self):
+    def update(self, game_speed):
         self.x -= game_speed
         if self.x < -self.width:
             self.x = SCREEN_WIDTH + random.randint(2500, 3000)
@@ -148,7 +149,7 @@ class Obstacle():
 
         self.rect.x = SCREEN_WIDTH
 
-    def update(self):
+    def update(self, game_speed):
         self.rect.x -= game_speed
         if self.rect.x < - self.rect.width:
             obstacles.pop(0)
@@ -158,6 +159,9 @@ class Obstacle():
 
     def getXY(self):
         return (self.rect.x, self.rect.y)
+
+    def getLength(self):
+        return self.image[self.type].get_width()
 
     def getHeight(self):
         return y_pos_bg - self.rect.y
@@ -210,14 +214,25 @@ def playerKeySelector():
     else:
         return "K_NO"
 
+class NNInput():
+    def __init__(self, distance_from_obstacle, obstacle_length, obstacle_height, dino_height, game_speed):
+        self.distance_from_obstacle = distance_from_obstacle
+        self.obstacle_length = obstacle_length
+        self.obstacle_height = obstacle_height
+        self.dino_height = dino_height
+        self.game_speed = game_speed
+
+    def to_tensor(self):
+        return FloatTensor([self.distance_from_obstacle, self.obstacle_length, self.obstacle_height, self.dino_height, self.game_speed])
 
 def playGame(ai_player = null):
-    global game_speed, x_pos_bg, y_pos_bg, points, obstacles
+    input = NNInput(1500, 0, 0, 0, 10)
+
+    global x_pos_bg, y_pos_bg, points, obstacles
     run = True
     clock = pygame.time.Clock()
     player = Dinosaur()
     cloud = Cloud()
-    game_speed = 10
     x_pos_bg = 0
     y_pos_bg = 383
     points = 0
@@ -226,18 +241,21 @@ def playGame(ai_player = null):
     death_count = 0
     spawn_dist = 0
 
-    def score():
-        global points, game_speed
+    def score(current_game_speed):
+        global points
+        new_game_speed = current_game_speed
         points += 0.25
         if points % 100 == 0:
-            game_speed += 1
+            new_game_speed = current_game_speed + 1
 
         text = font.render("Points: " + str(int(points)), True, (0, 0, 0))
         textRect = text.get_rect()
         textRect.center = (1000, 40)
         SCREEN.blit(text, textRect)
 
-    def background():
+        return new_game_speed
+
+    def background(current_game_speed):
         global x_pos_bg, y_pos_bg
         image_width = BG.get_width()
         SCREEN.blit(BG, (x_pos_bg, y_pos_bg))
@@ -245,7 +263,7 @@ def playGame(ai_player = null):
         if x_pos_bg <= -image_width:
             SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
             x_pos_bg = 0
-        x_pos_bg -= game_speed
+        x_pos_bg -= current_game_speed
 
     while run:
         for event in pygame.event.get():
@@ -255,19 +273,22 @@ def playGame(ai_player = null):
 
         SCREEN.fill((255, 255, 255))
 
-        distance = 1500
-        obHeight = 0
-        obType = 2
         if len(obstacles) != 0:
             xy = obstacles[0].getXY()
-            distance = xy[0]
-            obHeight = obstacles[0].getHeight()
-            obType = obstacles[0]
+
+            input.distance_from_obstacle = xy[0]
+            input.obstacle_length = obstacles[0].getLength()
+            input.obstacle_height = obstacles[0].getHeight()
 
         if GAME_MODE == "HUMAN_MODE":
             userInput = playerKeySelector()
         else:
-            userInput = ai_player.keySelector(distance, obHeight, game_speed, obType)
+            print("distance_from_obstacle: " + str(input.distance_from_obstacle),
+                " obstacle_length: " + str(input.obstacle_length) +
+                " obstacle_height: " + str(input.obstacle_height) +
+                " dino_height: " + str(input.dino_height) +
+                " game_speed: " + str(input.game_speed))
+            userInput = ai_player.forward(input.to_tensor())
 
         if len(obstacles) == 0 or obstacles[-1].getXY()[0] < spawn_dist:
             spawn_dist = random.randint(0, 670)
@@ -282,21 +303,22 @@ def playGame(ai_player = null):
         player.draw(SCREEN)
 
         for obstacle in list(obstacles):
-            obstacle.update()
+            obstacle.update(input.game_speed)
             obstacle.draw(SCREEN)
 
-        background()
+        background(input.game_speed)
 
         cloud.draw(SCREEN)
-        cloud.update()
+        cloud.update(input.game_speed)
 
-        score()
+        input.game_speed = score(input.game_speed)
+        input.dino_height = player.getXY()[1]
 
         clock.tick(60)
         pygame.display.update()
 
         for obstacle in obstacles:
             if player.dino_rect.colliderect(obstacle.rect):
-                pygame.time.delay(2000)
+                pygame.time.delay(1000)
                 death_count += 1
                 return points

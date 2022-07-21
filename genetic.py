@@ -43,6 +43,9 @@ def roulette_run(roulette, rounds):
     return selected
 
 def evaluate_state(s):
+    ai_player = nn.NN(cfg.num_imputs, cfg.num_outputs)
+    nn.vector_to_parameters(nn.Tensor(s), ai_player.parameters())
+
     results = []
     for round in range(0, cfg.num_rounds_evaluation):
         results += [playGame(ai_player)]
@@ -123,6 +126,18 @@ def mutation_step(pop, mut_ratio):
         ind += 1
     return pop
 
+def generate_initial_pop():
+    pop = []
+    ai_player = nn.NN(cfg.num_imputs, cfg.num_outputs)
+
+    for i in range(0, cfg.num_individuals_per_pop):
+        individual = []
+        for j in range(0, len(nn.parameters_to_vector(ai_player.parameters()))):
+            individual.append(random.uniform(cfg.min_valor_peso, cfg.max_valor_peso))
+        pop.append(individual)
+        
+    return pop
+
 def genetic(max_size, max_iter, cross_ratio, mut_ratio, elite_pct, pop):
     pop_size = len(pop)
 
@@ -131,16 +146,9 @@ def genetic(max_size, max_iter, cross_ratio, mut_ratio, elite_pct, pop):
     conv = convergent(pop)
     iter = 0
 
-    global ai_player
-    ai_player = nn.NN(cfg.num_imputs, cfg.num_outputs)
-
     while not conv and iter < max_iter:
         val_pop = evaluate_population(pop)
-        print("\nPopulation evaluation:")
-        print(val_pop)
         new_pop = elitism(val_pop, elite_pct)
-        print("\nPopulation after elitism:")
-        print(new_pop)
         best = new_pop[0]
         val_best = evaluate_state(best)
 
@@ -149,18 +157,10 @@ def genetic(max_size, max_iter, cross_ratio, mut_ratio, elite_pct, pop):
             opt_value = val_best
 
         selected = selection(val_pop, pop_size - len(new_pop))
-        print("\nSelected individuals:")
-        print(selected)
         crossed = crossover_step(selected, pop_size, cross_ratio, max_size)
-        print("\nSelected individuals after crossover:")
-        print(crossed)
         mutated = mutation_step(crossed, mut_ratio)
-        print("\nSelected individuals after mutation:")
-        print(mutated)
         
         pop = new_pop + mutated
-        print("\nNew population:")
-        print(pop)
 
         conv = convergent(pop)
         iter += 1
