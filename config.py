@@ -7,10 +7,9 @@ min_valor_peso = -1 # Limite inferior para o valor de um peso da rede
 max_valor_peso = 1 # Limite superior para o valor de um peso da rede
 
 # Configuracoes do algoritmo genetico
-max_size = sys.maxsize # Numero maximos de individuos em uma populacao
-max_iter = 10 # Numero maximo de iteracoes do algoritmo
+max_iter = 100000 # Numero maximo de iteracoes do algoritmo
+max_time = 28800 # Tempo maximo em segundos de execucao do algoritmo (1h = 3600s, 24h = 86400s)
 cross_ratio = 0.9 # Taxa de crossover
 mut_ratio = 0.1 # Taxa de mutacao
 elite_pct = 20 # Taxa de elitismo
-num_individuals_per_pop = 5 # Numero inicial de individuos por populacao
-num_rounds_evaluation = 3 # Numero de round a serem jogados para avaliar o desempenho do individuo
+num_individuals_per_pop = 100 # Numero de individuos por populacao

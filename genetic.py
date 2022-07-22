@@ -1,3 +1,4 @@
+import time
 import random
 import math
 import numpy as np
@@ -42,21 +43,14 @@ def roulette_run(roulette, rounds):
                 break
     return selected
 
-def evaluate_state(s):
-    ai_player = nn.NN(cfg.num_imputs, cfg.num_outputs)
-    nn.vector_to_parameters(nn.Tensor(s), ai_player.parameters())
-
-    results = []
-    for round in range(0, cfg.num_rounds_evaluation):
-        results += [playGame(ai_player)]
-    npResults = np.asarray(results)
-    return npResults.mean()
-
 def evaluate_population(pop):
-    eval = []
+    players_and_states = []
     for s in pop:
-        eval = eval + [(evaluate_state(s), s)]
-    return eval
+        ai_player = nn.NN(cfg.num_imputs, cfg.num_outputs)
+        nn.vector_to_parameters(nn.Tensor(s), ai_player.parameters())
+        players_and_states.append((ai_player, s))
+
+    return playGame(players_and_states)
 
 def convergent(pop):
     conv = False
@@ -88,7 +82,7 @@ def crossover(dad, mom):
     daug = mom[:r] + dad[r:]
     return son, daug
 
-def crossover_step(pop, pop_size, cross_ratio, max_size):
+def crossover_step(pop, cross_ratio):
     new_pop = []
 
     for _ in range(round(len(pop)/2)):
@@ -100,7 +94,7 @@ def crossover_step(pop, pop_size, cross_ratio, max_size):
         parent1 = pop[fst_ind]
         parent2 = pop[scd_ind]
 
-        if pop_size + 2 <= max_size and rand <= cross_ratio:
+        if rand <= cross_ratio:
             offspring1, offspring2 = crossover(parent1, parent2)
         else:
             offspring1, offspring2 = parent1, parent2
@@ -138,7 +132,7 @@ def generate_initial_pop():
         
     return pop
 
-def genetic(max_size, max_iter, cross_ratio, mut_ratio, elite_pct, pop):
+def genetic(max_iter, max_time, cross_ratio, mut_ratio, elite_pct, pop):
     pop_size = len(pop)
 
     opt_state = [0] * pop_size
@@ -146,23 +140,32 @@ def genetic(max_size, max_iter, cross_ratio, mut_ratio, elite_pct, pop):
     conv = convergent(pop)
     iter = 0
 
-    while not conv and iter < max_iter:
+    start = time.process_time()
+    end = 0
+
+    while not conv and iter < max_iter and end - start <= cfg.max_time:
         val_pop = evaluate_population(pop)
         new_pop = elitism(val_pop, elite_pct)
         best = new_pop[0]
-        val_best = evaluate_state(best)
+
+        vals = []
+        for v, s in val_pop:
+            vals.append(v)
+        val_best = max(vals)
 
         if val_best > opt_value:
             opt_state = best
             opt_value = val_best
 
         selected = selection(val_pop, pop_size - len(new_pop))
-        crossed = crossover_step(selected, pop_size, cross_ratio, max_size)
+        crossed = crossover_step(selected, cross_ratio)
         mutated = mutation_step(crossed, mut_ratio)
         
         pop = new_pop + mutated
 
         conv = convergent(pop)
         iter += 1
+
+        end = time.process_time()
     
-    return opt_state, opt_value, iter, conv
+    return opt_state, opt_value

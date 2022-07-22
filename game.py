@@ -44,6 +44,9 @@ class Dinosaur:
     JUMP_VEL = 17
     JUMP_GRAV = 1.1
 
+    points = 0
+    is_alive = True
+
     def __init__(self):
         self.duck_img = DUCKING
         self.run_img = RUNNING
@@ -225,24 +228,26 @@ class NNInput():
     def to_tensor(self):
         return FloatTensor([self.distance_from_obstacle, self.obstacle_length, self.obstacle_height, self.dino_height, self.game_speed])
 
-def playGame(ai_player = null):
+def playGame(players_and_states):
+    dinos = []
+    for p, s in players_and_states:
+        dinos.append((Dinosaur(), (p, s)))
+
+    num_dinos = len(dinos)
+
     input = NNInput(1500, 0, 0, 0, 10)
 
-    global x_pos_bg, y_pos_bg, points, obstacles
+    global x_pos_bg, y_pos_bg, obstacles
     run = True
     clock = pygame.time.Clock()
-    player = Dinosaur()
     cloud = Cloud()
     x_pos_bg = 0
     y_pos_bg = 383
-    points = 0
     font = pygame.font.Font('freesansbold.ttf', 20)
     obstacles = []
-    death_count = 0
     spawn_dist = 0
 
-    def score(current_game_speed):
-        global points
+    def score(points, current_game_speed):
         new_game_speed = current_game_speed
         points += 0.25
         if points % 100 == 0:
@@ -253,7 +258,7 @@ def playGame(ai_player = null):
         textRect.center = (1000, 40)
         SCREEN.blit(text, textRect)
 
-        return new_game_speed
+        return points, new_game_speed
 
     def background(current_game_speed):
         global x_pos_bg, y_pos_bg
@@ -273,22 +278,41 @@ def playGame(ai_player = null):
 
         SCREEN.fill((255, 255, 255))
 
-        if len(obstacles) != 0:
-            xy = obstacles[0].getXY()
+        num_dinos_alive = 0
+        alter_game_speed = True
 
-            input.distance_from_obstacle = xy[0]
-            input.obstacle_length = obstacles[0].getLength()
-            input.obstacle_height = obstacles[0].getHeight()
+        for dino in dinos:
+            if dino[0].is_alive == True:
+                num_dinos_alive += 1
+                if len(obstacles) != 0:
+                    xy = obstacles[0].getXY()
 
-        if GAME_MODE == "HUMAN_MODE":
-            userInput = playerKeySelector()
-        else:
-            print("distance_from_obstacle: " + str(input.distance_from_obstacle),
-                " obstacle_length: " + str(input.obstacle_length) +
-                " obstacle_height: " + str(input.obstacle_height) +
-                " dino_height: " + str(input.dino_height) +
-                " game_speed: " + str(input.game_speed))
-            userInput = ai_player.forward(input.to_tensor())
+                    input.distance_from_obstacle = xy[0]
+                    input.obstacle_length = obstacles[0].getLength()
+                    input.obstacle_height = obstacles[0].getHeight()
+                    input.dino_height = dino[0].getXY()[1]
+                    dino[0].points, game_speed = score(dino[0].points, input.game_speed)
+
+                    if alter_game_speed == True:
+                        input.game_speed = game_speed
+                        alter_game_speed = False
+
+                if GAME_MODE == "HUMAN_MODE":
+                    userInput = playerKeySelector()
+                else:
+                    userInput = dino[1][0].forward(input.to_tensor())
+
+                dino[0].update(userInput)
+                dino[0].draw(SCREEN)
+
+        if num_dinos_alive == 0:
+            pygame.time.delay(1000)
+
+            results = []
+            for dino in dinos:
+                results.append((dino[0].points, dino[1][1]))
+
+            return results
 
         if len(obstacles) == 0 or obstacles[-1].getXY()[0] < spawn_dist:
             spawn_dist = random.randint(0, 670)
@@ -299,9 +323,6 @@ def playGame(ai_player = null):
             elif random.randint(0, 5) == 5:
                 obstacles.append(Bird(BIRD))
 
-        player.update(userInput)
-        player.draw(SCREEN)
-
         for obstacle in list(obstacles):
             obstacle.update(input.game_speed)
             obstacle.draw(SCREEN)
@@ -311,14 +332,10 @@ def playGame(ai_player = null):
         cloud.draw(SCREEN)
         cloud.update(input.game_speed)
 
-        input.game_speed = score(input.game_speed)
-        input.dino_height = player.getXY()[1]
-
         clock.tick(60)
         pygame.display.update()
 
         for obstacle in obstacles:
-            if player.dino_rect.colliderect(obstacle.rect):
-                pygame.time.delay(1000)
-                death_count += 1
-                return points
+            for dino in dinos:
+                if dino[0].dino_rect.colliderect(obstacle.rect):
+                    dino[0].is_alive = False
