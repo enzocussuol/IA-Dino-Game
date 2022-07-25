@@ -12,7 +12,7 @@ def main():
     nn.vector_to_parameters(nn.Tensor(opt_state), ai_player.parameters())
     
     results_and_states = []
-    for i in range(3):
+    for i in range(30):
         results_and_states.append(playGame([(ai_player, opt_state)]))
     
     results = []

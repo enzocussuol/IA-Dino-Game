@@ -1,6 +1,8 @@
+from unittest import result
 import torch.nn as nn
 from torch import Tensor
 from torch.nn.utils import parameters_to_vector, vector_to_parameters
+from torch import argmax
 
 class NN(nn.Module):
     def __init__(self, num_imputs, num_outputs):
@@ -15,9 +17,10 @@ class NN(nn.Module):
         
     def forward(self, x):
         result_tensor = self.layers(x)
+        result = argmax(result_tensor).item()
 
-        if result_tensor[0] > 0:
+        if result == 0:
             return "K_UP"
-        elif result_tensor[1] > 0:
+        elif result == 1:
             return "K_DOWN"
         return "K_NO"

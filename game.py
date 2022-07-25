@@ -4,6 +4,7 @@ import random
 
 from sqlalchemy import null
 from torch import FloatTensor
+from sklearn import preprocessing
 
 pygame.init()
 
