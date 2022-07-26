@@ -1,6 +1,7 @@
 import pygame
 import os
 import random
+import neuralNetwork as nn
 
 from sqlalchemy import null
 from torch import FloatTensor

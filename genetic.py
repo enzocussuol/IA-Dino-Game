@@ -29,6 +29,7 @@ def roulette_construction(val_pop):
         acc_value = acc_value + state[0]
         s = (acc_value, state[1])
         roulette.append(s)
+
     return roulette
 
 def roulette_run(roulette, rounds):
@@ -63,11 +64,16 @@ def convergent(pop):
             i += 1
         return True
 
-def elitism(val_pop, pct):
-    n = math.floor((pct/100)*len(val_pop))
+def elitism(val_pop, pop_size, pct):
+    n = math.floor((pct/100)*pop_size)
     if n < 1:
         n = 1
-    val_elite = sorted(val_pop, key = first, reverse = True)[:n]
+    val_elite = val_pop[(pop_size - n):]
+
+    # print("\nval_elite:")
+    # for v, s in val_elite:
+    #     print(v, " ", end="")
+
     elite = [s for v, s in val_elite]
     return elite
 
@@ -145,17 +151,36 @@ def genetic(max_iter, max_time, cross_ratio, mut_ratio, elite_pct, pop):
 
     while not conv and iter < max_iter and end - start <= cfg.max_time:
         val_pop = evaluate_population(pop)
-        new_pop = elitism(val_pop, elite_pct)
-        best = new_pop[0]
+        val_pop = sorted(val_pop, key=first)
+
+        # print("\nval_pop:")
+        # for v, s in val_pop:
+        #     print(v, " ", end="")
+
+        # print("\nMelhor tupla da geracao:")
+        # print(val_pop[99])
+
+        new_pop = elitism(val_pop, pop_size, elite_pct)
+
+        best = new_pop[len(new_pop) - 1]
 
         vals = []
         for v, s in val_pop:
             vals.append(v)
         val_best = max(vals)
 
+        # print("\nval_best: ", val_best)
+        # print("opt_value: ", opt_value)
+
         if val_best > opt_value:
             opt_state = best
             opt_value = val_best
+
+            # print("opt_state atualizado:")
+            # print(opt_state)
+
+            # print("opt_value atualizado:")
+            # print(opt_value)
 
         selected = selection(val_pop, pop_size - len(new_pop))
         crossed = crossover_step(selected, cross_ratio)
