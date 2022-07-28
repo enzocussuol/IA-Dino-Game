@@ -220,24 +220,29 @@ def playerKeySelector():
         return "K_NO"
 
 class NNInput():
-    def __init__(self, distance_from_obstacle, obstacle_length, obstacle_height, dino_height, game_speed):
+    def __init__(self, distance_from_obstacle = 670, obstacle_length = 0, obstacle_height = 0, game_speed = 10):
         self.distance_from_obstacle = distance_from_obstacle
         self.obstacle_length = obstacle_length
         self.obstacle_height = obstacle_height
-        self.dino_height = dino_height
         self.game_speed = game_speed
 
     def to_tensor(self):
-        return FloatTensor([self.distance_from_obstacle, self.obstacle_length, self.obstacle_height, self.dino_height, self.game_speed])
+        # print("\n ===== INPUT =====")
+        # print("distance_from_obstacle: ", self.distance_from_obstacle)
+        # print("obstacle_length: ", self.obstacle_length)
+        # print("obstacle_height: ", self.obstacle_height)
+        # print("game_speed: ", self.game_speed)
 
-def playGame(players_and_states):
+        return FloatTensor([self.distance_from_obstacle/670, self.obstacle_length/123, self.obstacle_height/123, self.game_speed/100])
+
+def playGame(players_and_states, treino = True):
     dinos = []
     for p, s in players_and_states:
         dinos.append((Dinosaur(), (p, s)))
 
     num_dinos = len(dinos)
 
-    input = NNInput(1500, 0, 0, 0, 10)
+    input = NNInput()
 
     global x_pos_bg, y_pos_bg, obstacles
     run = True
@@ -292,7 +297,6 @@ def playGame(players_and_states):
                     input.distance_from_obstacle = xy[0]
                     input.obstacle_length = obstacles[0].getLength()
                     input.obstacle_height = obstacles[0].getHeight()
-                    input.dino_height = dino[0].getXY()[1]
                     dino[0].points, game_speed = score(dino[0].points, input.game_speed)
 
                     if alter_game_speed == True:
@@ -316,14 +320,25 @@ def playGame(players_and_states):
 
             return results
 
-        if len(obstacles) == 0 or obstacles[-1].getXY()[0] < spawn_dist:
-            spawn_dist = random.randint(0, 670)
-            if random.randint(0, 2) == 0:
-                obstacles.append(SmallCactus(SMALL_CACTUS))
-            elif random.randint(0, 2) == 1:
-                obstacles.append(LargeCactus(LARGE_CACTUS))
-            elif random.randint(0, 5) == 5:
-                obstacles.append(Bird(BIRD))
+        if treino == True:
+            if len(obstacles) == 0 or obstacles[-1].getXY()[0] < spawn_dist:
+                spawn_dist = random.randint(0, 670)
+                r = random.randint(0, 2)
+                if r == 0:
+                    obstacles.append(SmallCactus(SMALL_CACTUS))
+                elif r == 1:
+                    obstacles.append(LargeCactus(LARGE_CACTUS))
+                elif r == 2:
+                    obstacles.append(Bird(BIRD))
+        else:
+            if len(obstacles) == 0 or obstacles[-1].getXY()[0] < spawn_dist:
+                spawn_dist = random.randint(0, 670)
+                if random.randint(0, 2) == 0:
+                    obstacles.append(SmallCactus(SMALL_CACTUS))
+                elif random.randint(0, 2) == 1:
+                    obstacles.append(LargeCactus(LARGE_CACTUS))
+                elif random.randint(0, 5) == 5:
+                    obstacles.append(Bird(BIRD))
 
         for obstacle in list(obstacles):
             obstacle.update(input.game_speed)

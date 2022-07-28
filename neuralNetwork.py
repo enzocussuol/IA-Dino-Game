@@ -7,7 +7,7 @@ from torch import argmax
 class NN(nn.Module):
     def __init__(self, num_imputs, num_outputs):
         super(NN, self).__init__()
-        num_internal_neurons = num_imputs*2 + 1
+        num_internal_neurons = int((num_imputs*2)/3 + num_outputs)
         self.layers = nn.Sequential(
             nn.Linear(num_imputs, num_internal_neurons),
             nn.ReLU(),

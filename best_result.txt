@@ -1,0 +1,659 @@
+# Configuracoes da rede neural
+num_imputs = 4 # Numero de entradas da rede neural (distance_from_obstacle, obstacle_length, obstacle_height, game_speed)
+num_outputs = 3 # Numero de saidas da rede neural (3: K_UP, K_DOWN, K_NO)
+min_valor_peso = -1 # Limite inferior para o valor de um peso da rede
+max_valor_peso = 1 # Limite superior para o valor de um peso da rede
+
+# Configuracoes do algoritmo genetico
+max_iter = 100000 # Numero maximo de iteracoes do algoritmo
+max_time = 28800 # Tempo maximo em segundos de execucao do algoritmo (1h = 3600s, 15h = 54000s, 24h = 86400s)
+cross_ratio = 0.9 # Taxa de crossover
+mut_ratio = 0.1 # Taxa de mutacao
+gene_mut_ratio = 0.1 # Taxa de genes a serem mutados
+elite_pct = 3 # Taxa de elitismo
+num_individuals_per_pop = 100 # Numero de individuos por populacao
+
+============================
+ITER:  1
+BEST VALUE FROM ITER:  49
+BEST VALUE SO FAR:  49
+============================
+ITER:  2
+BEST VALUE FROM ITER:  105
+BEST VALUE SO FAR:  105
+============================
+ITER:  3
+BEST VALUE FROM ITER:  44
+BEST VALUE SO FAR:  105
+============================
+ITER:  4
+BEST VALUE FROM ITER:  103
+BEST VALUE SO FAR:  105
+============================
+ITER:  5
+BEST VALUE FROM ITER:  80
+BEST VALUE SO FAR:  105
+============================
+ITER:  6
+BEST VALUE FROM ITER:  58
+BEST VALUE SO FAR:  105
+============================
+ITER:  7
+BEST VALUE FROM ITER:  50
+BEST VALUE SO FAR:  105
+============================
+ITER:  8
+BEST VALUE FROM ITER:  62
+BEST VALUE SO FAR:  105
+============================
+ITER:  9
+BEST VALUE FROM ITER:  69
+BEST VALUE SO FAR:  105
+============================
+ITER:  10
+BEST VALUE FROM ITER:  60
+BEST VALUE SO FAR:  105
+============================
+ITER:  11
+BEST VALUE FROM ITER:  147
+BEST VALUE SO FAR:  147
+============================
+ITER:  12
+BEST VALUE FROM ITER:  223
+BEST VALUE SO FAR:  223
+============================
+ITER:  13
+BEST VALUE FROM ITER:  169
+BEST VALUE SO FAR:  223
+============================
+ITER:  14
+BEST VALUE FROM ITER:  173
+BEST VALUE SO FAR:  223
+============================
+ITER:  15
+BEST VALUE FROM ITER:  207
+BEST VALUE SO FAR:  223
+============================
+ITER:  16
+BEST VALUE FROM ITER:  162
+BEST VALUE SO FAR:  223
+============================
+ITER:  17
+BEST VALUE FROM ITER:  195
+BEST VALUE SO FAR:  223
+============================
+ITER:  18
+BEST VALUE FROM ITER:  210
+BEST VALUE SO FAR:  223
+============================
+ITER:  19
+BEST VALUE FROM ITER:  196
+BEST VALUE SO FAR:  223
+============================
+ITER:  20
+BEST VALUE FROM ITER:  261
+BEST VALUE SO FAR:  261
+============================
+ITER:  21
+BEST VALUE FROM ITER:  291
+BEST VALUE SO FAR:  291
+============================
+ITER:  22
+BEST VALUE FROM ITER:  251
+BEST VALUE SO FAR:  291
+============================
+ITER:  23
+BEST VALUE FROM ITER:  300
+BEST VALUE SO FAR:  300
+============================
+ITER:  24
+BEST VALUE FROM ITER:  263
+BEST VALUE SO FAR:  300
+============================
+ITER:  25
+BEST VALUE FROM ITER:  317
+BEST VALUE SO FAR:  317
+============================
+ITER:  26
+BEST VALUE FROM ITER:  274
+BEST VALUE SO FAR:  317
+============================
+ITER:  27
+BEST VALUE FROM ITER:  437
+BEST VALUE SO FAR:  437
+============================
+ITER:  28
+BEST VALUE FROM ITER:  387
+BEST VALUE SO FAR:  437
+============================
+ITER:  29
+BEST VALUE FROM ITER:  448
+BEST VALUE SO FAR:  448
+============================
+ITER:  30
+BEST VALUE FROM ITER:  347
+BEST VALUE SO FAR:  448
+============================
+ITER:  31
+BEST VALUE FROM ITER:  334
+BEST VALUE SO FAR:  448
+============================
+ITER:  32
+BEST VALUE FROM ITER:  389
+BEST VALUE SO FAR:  448
+============================
+ITER:  33
+BEST VALUE FROM ITER:  368
+BEST VALUE SO FAR:  448
+============================
+ITER:  34
+BEST VALUE FROM ITER:  399
+BEST VALUE SO FAR:  448
+============================
+ITER:  35
+BEST VALUE FROM ITER:  356
+BEST VALUE SO FAR:  448
+============================
+ITER:  36
+BEST VALUE FROM ITER:  446
+BEST VALUE SO FAR:  448
+============================
+ITER:  37
+BEST VALUE FROM ITER:  369
+BEST VALUE SO FAR:  448
+============================
+ITER:  38
+BEST VALUE FROM ITER:  378
+BEST VALUE SO FAR:  448
+============================
+ITER:  39
+BEST VALUE FROM ITER:  439
+BEST VALUE SO FAR:  448
+============================
+ITER:  40
+BEST VALUE FROM ITER:  394
+BEST VALUE SO FAR:  448
+============================
+ITER:  41
+BEST VALUE FROM ITER:  403
+BEST VALUE SO FAR:  448
+============================
+ITER:  42
+BEST VALUE FROM ITER:  385
+BEST VALUE SO FAR:  448
+============================
+ITER:  43
+BEST VALUE FROM ITER:  409
+BEST VALUE SO FAR:  448
+============================
+ITER:  44
+BEST VALUE FROM ITER:  458
+BEST VALUE SO FAR:  458
+============================
+ITER:  45
+BEST VALUE FROM ITER:  329
+BEST VALUE SO FAR:  458
+============================
+ITER:  46
+BEST VALUE FROM ITER:  362
+BEST VALUE SO FAR:  458
+============================
+ITER:  47
+BEST VALUE FROM ITER:  400
+BEST VALUE SO FAR:  458
+============================
+ITER:  48
+BEST VALUE FROM ITER:  433
+BEST VALUE SO FAR:  458
+============================
+ITER:  49
+BEST VALUE FROM ITER:  452
+BEST VALUE SO FAR:  458
+============================
+ITER:  50
+BEST VALUE FROM ITER:  474
+BEST VALUE SO FAR:  474
+============================
+ITER:  51
+BEST VALUE FROM ITER:  395
+BEST VALUE SO FAR:  474
+============================
+ITER:  52
+BEST VALUE FROM ITER:  422
+BEST VALUE SO FAR:  474
+============================
+ITER:  53
+BEST VALUE FROM ITER:  446
+BEST VALUE SO FAR:  474
+============================
+ITER:  54
+BEST VALUE FROM ITER:  448
+BEST VALUE SO FAR:  474
+============================
+ITER:  55
+BEST VALUE FROM ITER:  457
+BEST VALUE SO FAR:  474
+============================
+ITER:  56
+BEST VALUE FROM ITER:  713
+BEST VALUE SO FAR:  713
+============================
+ITER:  57
+BEST VALUE FROM ITER:  441
+BEST VALUE SO FAR:  713
+============================
+ITER:  58
+BEST VALUE FROM ITER:  495
+BEST VALUE SO FAR:  713
+============================
+ITER:  59
+BEST VALUE FROM ITER:  418
+BEST VALUE SO FAR:  713
+============================
+ITER:  60
+BEST VALUE FROM ITER:  394
+BEST VALUE SO FAR:  713
+============================
+ITER:  61
+BEST VALUE FROM ITER:  382
+BEST VALUE SO FAR:  713
+============================
+ITER:  62
+BEST VALUE FROM ITER:  431
+BEST VALUE SO FAR:  713
+============================
+ITER:  63
+BEST VALUE FROM ITER:  419
+BEST VALUE SO FAR:  713
+============================
+ITER:  64
+BEST VALUE FROM ITER:  405
+BEST VALUE SO FAR:  713
+============================
+ITER:  65
+BEST VALUE FROM ITER:  344
+BEST VALUE SO FAR:  713
+============================
+ITER:  66
+BEST VALUE FROM ITER:  371
+BEST VALUE SO FAR:  713
+============================
+ITER:  67
+BEST VALUE FROM ITER:  856
+BEST VALUE SO FAR:  856
+============================
+ITER:  68
+BEST VALUE FROM ITER:  419
+BEST VALUE SO FAR:  856
+============================
+ITER:  69
+BEST VALUE FROM ITER:  615
+BEST VALUE SO FAR:  856
+============================
+ITER:  70
+BEST VALUE FROM ITER:  339
+BEST VALUE SO FAR:  856
+============================
+ITER:  71
+BEST VALUE FROM ITER:  381
+BEST VALUE SO FAR:  856
+============================
+ITER:  72
+BEST VALUE FROM ITER:  664
+BEST VALUE SO FAR:  856
+============================
+ITER:  73
+BEST VALUE FROM ITER:  356
+BEST VALUE SO FAR:  856
+============================
+ITER:  74
+BEST VALUE FROM ITER:  559
+BEST VALUE SO FAR:  856
+============================
+ITER:  75
+BEST VALUE FROM ITER:  553
+BEST VALUE SO FAR:  856
+============================
+ITER:  76
+BEST VALUE FROM ITER:  602
+BEST VALUE SO FAR:  856
+============================
+ITER:  77
+BEST VALUE FROM ITER:  568
+BEST VALUE SO FAR:  856
+============================
+ITER:  78
+BEST VALUE FROM ITER:  405
+BEST VALUE SO FAR:  856
+============================
+ITER:  79
+BEST VALUE FROM ITER:  601
+BEST VALUE SO FAR:  856
+============================
+ITER:  80
+BEST VALUE FROM ITER:  863
+BEST VALUE SO FAR:  863
+============================
+ITER:  81
+BEST VALUE FROM ITER:  991
+BEST VALUE SO FAR:  991
+============================
+ITER:  82
+BEST VALUE FROM ITER:  594
+BEST VALUE SO FAR:  991
+============================
+ITER:  83
+BEST VALUE FROM ITER:  394
+BEST VALUE SO FAR:  991
+============================
+ITER:  84
+BEST VALUE FROM ITER:  880
+BEST VALUE SO FAR:  991
+============================
+ITER:  85
+BEST VALUE FROM ITER:  602
+BEST VALUE SO FAR:  991
+============================
+ITER:  86
+BEST VALUE FROM ITER:  346
+BEST VALUE SO FAR:  991
+============================
+ITER:  87
+BEST VALUE FROM ITER:  569
+BEST VALUE SO FAR:  991
+============================
+ITER:  88
+BEST VALUE FROM ITER:  463
+BEST VALUE SO FAR:  991
+============================
+ITER:  89
+BEST VALUE FROM ITER:  549
+BEST VALUE SO FAR:  991
+============================
+ITER:  90
+BEST VALUE FROM ITER:  401
+BEST VALUE SO FAR:  991
+============================
+ITER:  91
+BEST VALUE FROM ITER:  581
+BEST VALUE SO FAR:  991
+============================
+ITER:  92
+BEST VALUE FROM ITER:  810
+BEST VALUE SO FAR:  991
+============================
+ITER:  93
+BEST VALUE FROM ITER:  497
+BEST VALUE SO FAR:  991
+============================
+ITER:  94
+BEST VALUE FROM ITER:  579
+BEST VALUE SO FAR:  991
+============================
+ITER:  95
+BEST VALUE FROM ITER:  369
+BEST VALUE SO FAR:  991
+============================
+ITER:  96
+BEST VALUE FROM ITER:  415
+BEST VALUE SO FAR:  991
+============================
+ITER:  97
+BEST VALUE FROM ITER:  428
+BEST VALUE SO FAR:  991
+============================
+ITER:  98
+BEST VALUE FROM ITER:  426
+BEST VALUE SO FAR:  991
+============================
+ITER:  99
+BEST VALUE FROM ITER:  1138
+BEST VALUE SO FAR:  1138
+============================
+ITER:  100
+BEST VALUE FROM ITER:  1084
+BEST VALUE SO FAR:  1138
+============================
+ITER:  101
+BEST VALUE FROM ITER:  1187
+BEST VALUE SO FAR:  1187
+============================
+ITER:  102
+BEST VALUE FROM ITER:  986
+BEST VALUE SO FAR:  1187
+============================
+ITER:  103
+BEST VALUE FROM ITER:  1188
+BEST VALUE SO FAR:  1188
+============================
+ITER:  104
+BEST VALUE FROM ITER:  1112
+BEST VALUE SO FAR:  1188
+============================
+ITER:  105
+BEST VALUE FROM ITER:  1210
+BEST VALUE SO FAR:  1210
+============================
+ITER:  106
+BEST VALUE FROM ITER:  1181
+BEST VALUE SO FAR:  1210
+============================
+ITER:  107
+BEST VALUE FROM ITER:  1257
+BEST VALUE SO FAR:  1257
+============================
+ITER:  108
+BEST VALUE FROM ITER:  1217
+BEST VALUE SO FAR:  1257
+============================
+ITER:  109
+BEST VALUE FROM ITER:  1052
+BEST VALUE SO FAR:  1257
+============================
+ITER:  110
+BEST VALUE FROM ITER:  1336
+BEST VALUE SO FAR:  1336
+============================
+ITER:  111
+BEST VALUE FROM ITER:  1152
+BEST VALUE SO FAR:  1336
+============================
+ITER:  112
+BEST VALUE FROM ITER:  1086
+BEST VALUE SO FAR:  1336
+============================
+ITER:  113
+BEST VALUE FROM ITER:  1177
+BEST VALUE SO FAR:  1336
+============================
+ITER:  114
+BEST VALUE FROM ITER:  1344
+BEST VALUE SO FAR:  1344
+============================
+ITER:  115
+BEST VALUE FROM ITER:  1233
+BEST VALUE SO FAR:  1344
+============================
+ITER:  116
+BEST VALUE FROM ITER:  1182
+BEST VALUE SO FAR:  1344
+============================
+ITER:  117
+BEST VALUE FROM ITER:  1219
+BEST VALUE SO FAR:  1344
+============================
+ITER:  118
+BEST VALUE FROM ITER:  1233
+BEST VALUE SO FAR:  1344
+============================
+ITER:  119
+BEST VALUE FROM ITER:  1143
+BEST VALUE SO FAR:  1344
+============================
+ITER:  120
+BEST VALUE FROM ITER:  1202
+BEST VALUE SO FAR:  1344
+============================
+ITER:  121
+BEST VALUE FROM ITER:  1020
+BEST VALUE SO FAR:  1344
+============================
+ITER:  122
+BEST VALUE FROM ITER:  1271
+BEST VALUE SO FAR:  1344
+============================
+ITER:  123
+BEST VALUE FROM ITER:  1225
+BEST VALUE SO FAR:  1344
+============================
+ITER:  124
+BEST VALUE FROM ITER:  1920
+BEST VALUE SO FAR:  1920
+============================
+ITER:  125
+BEST VALUE FROM ITER:  1643
+BEST VALUE SO FAR:  1920
+============================
+ITER:  126
+BEST VALUE FROM ITER:  1810
+BEST VALUE SO FAR:  1920
+============================
+ITER:  127
+BEST VALUE FROM ITER:  1908
+BEST VALUE SO FAR:  1920
+============================
+ITER:  128
+BEST VALUE FROM ITER:  1907
+BEST VALUE SO FAR:  1920
+============================
+ITER:  129
+BEST VALUE FROM ITER:  2241
+BEST VALUE SO FAR:  2241
+============================
+ITER:  130
+BEST VALUE FROM ITER:  1930
+BEST VALUE SO FAR:  2241
+============================
+ITER:  131
+BEST VALUE FROM ITER:  2079
+BEST VALUE SO FAR:  2241
+============================
+ITER:  132
+BEST VALUE FROM ITER:  1610
+BEST VALUE SO FAR:  2241
+============================
+ITER:  133
+BEST VALUE FROM ITER:  1982
+BEST VALUE SO FAR:  2241
+============================
+ITER:  134
+BEST VALUE FROM ITER:  1825
+BEST VALUE SO FAR:  2241
+============================
+ITER:  135
+BEST VALUE FROM ITER:  1706
+BEST VALUE SO FAR:  2241
+============================
+ITER:  136
+BEST VALUE FROM ITER:  1599
+BEST VALUE SO FAR:  2241
+============================
+ITER:  137
+BEST VALUE FROM ITER:  1904
+BEST VALUE SO FAR:  2241
+============================
+ITER:  138
+BEST VALUE FROM ITER:  2106
+BEST VALUE SO FAR:  2241
+============================
+ITER:  139
+BEST VALUE FROM ITER:  1958
+BEST VALUE SO FAR:  2241
+============================
+ITER:  140
+BEST VALUE FROM ITER:  1909
+BEST VALUE SO FAR:  2241
+============================
+ITER:  141
+BEST VALUE FROM ITER:  1967
+BEST VALUE SO FAR:  2241
+============================
+ITER:  142
+BEST VALUE FROM ITER:  2056
+BEST VALUE SO FAR:  2241
+============================
+ITER:  143
+BEST VALUE FROM ITER:  1902
+BEST VALUE SO FAR:  2241
+============================
+ITER:  144
+BEST VALUE FROM ITER:  2229
+BEST VALUE SO FAR:  2241
+============================
+ITER:  145
+BEST VALUE FROM ITER:  2166
+BEST VALUE SO FAR:  2241
+============================
+ITER:  146
+BEST VALUE FROM ITER:  1982
+BEST VALUE SO FAR:  2241
+============================
+ITER:  147
+BEST VALUE FROM ITER:  1836
+BEST VALUE SO FAR:  2241
+============================
+ITER:  148
+BEST VALUE FROM ITER:  2070
+BEST VALUE SO FAR:  2241
+============================
+ITER:  149
+BEST VALUE FROM ITER:  1838
+BEST VALUE SO FAR:  2241
+============================
+ITER:  150
+BEST VALUE FROM ITER:  1756
+BEST VALUE SO FAR:  2241
+============================
+ITER:  151
+BEST VALUE FROM ITER:  1445
+BEST VALUE SO FAR:  2241
+============================
+ITER:  152
+BEST VALUE FROM ITER:  2165
+BEST VALUE SO FAR:  2241
+============================
+ITER:  153
+BEST VALUE FROM ITER:  2217
+BEST VALUE SO FAR:  2241
+============================
+ITER:  154
+BEST VALUE FROM ITER:  2248
+BEST VALUE SO FAR:  2248
+============================
+ITER:  155
+BEST VALUE FROM ITER:  2166
+BEST VALUE SO FAR:  2248
+============================
+ITER:  156
+BEST VALUE FROM ITER:  1886
+BEST VALUE SO FAR:  2248
+============================
+ITER:  157
+BEST VALUE FROM ITER:  2280
+BEST VALUE SO FAR:  2280
+============================
+ITER:  158
+BEST VALUE FROM ITER:  1979
+BEST VALUE SO FAR:  2280
+============================
+ITER:  159
+BEST VALUE FROM ITER:  1995
+BEST VALUE SO FAR:  2280
+============================
+ITER:  160
+BEST VALUE FROM ITER:  2076
+BEST VALUE SO FAR:  2280
+opt_state:
+[0.677133121970197, 0.7094266673657799, 0.21470962511078717, -0.4082097776547975, -0.524526295563561, 0.8976795084064886, 0.5990224331347083, 0.1955927258335033, -0.4048968668259689, 0.11983010782604309, 0.3893727882561362, -0.47883310532259915, 0.5903531680083913, -0.09714096801146921, 0.12351035221735018, -0.6584796962419717, -0.7727282085317522, -0.4501892963271028, 0.8614196477707066, 0.8541648304396299, -0.5884773631428817, -0.7222372133369119, -0.414581410094808, -0.09275172805684795, -0.051280823467390046, 0.6405120252949597, -0.3344616147600876, 0.700630747188012, -0.8947656648277598, -0.04987974001020734, 0.7830195091089578, 0.005149921599586049, -0.7870677936668058, 0.5362956095450957, 0.8900313456626952, 0.2860734491991441, -0.18384750099573433, 0.5535427461997562, 0.1490829310459838, -0.5149428450760056, 0.14692042565394692, -0.031931135987872894, -0.1929810860185912]
+Optimal value:  2280
+[2100.0, 2249.25, 1932.25, 1869.75, 1819.0, 2389.75, 1591.5, 1925.5, 1985.5, 2067.25, 2205.0, 1669.0, 1727.75, 1948.0, 1440.25, 2156.0, 2208.5, 2010.75, 1932.5, 2244.0, 1596.75, 2301.75, 1799.5, 2263.75, 1401.0, 1627.0, 2321.25, 1824.0, 2056.0, 1876.0] 1951.2833333333333 262.8114876780609
