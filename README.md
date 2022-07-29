@@ -1,3 +1,5 @@
+# Inteligência Artificial para o Jogo do Dino da Google
+
 Passos para execução do dinoAI
 
 1. Instalar python3
